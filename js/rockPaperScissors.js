@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const nButtons = 3
   let resultHeading = ''
   let computerChoiceHeading = ''
+  let score = []
+  let playerResult = 0
+  let computerResult = 0
   for(let i = 0; i<nButtons; i++ ){
     random = Math.floor(Math.random()*(buttons.length-1))+1
     word = buttons[random]
@@ -33,6 +36,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
       resultHeading = document.createElement('h1')
       resultHeading.innerHTML=`Result: ${result}`
       document.body.appendChild(resultHeading)
+
+      score = getScore(result)
+      console.log(score[0])
+      console.log(score[1])
+      playerResult = playerResult + score[1]
+      computerResult= computerResult + score[0]
+      console.log(playerResult)
+      console.log(computerResult)
+      if(playerResult === 5){
+        alert(`Congratulations you've won, your score is ${playerResult}`)
+        return
+      }else if(computerResult === 5){
+        alert(`You Lost, your score is ${playerResult}`)
+        return
+      }
     })
   })
  function getComputerChoice() {
@@ -71,6 +89,16 @@ function round(playerSelection, computerChoice) {
     }
 }
 
+  function getScore(aScore){
+    let computerTotal = 0
+    let playerTotal = 0
+    if(aScore.toUpperCase() === "YOU LOST"){
+      computerTotal++
+    }else if(aScore.toUpperCase() === "YOU WON"){
+      playerTotal++
+    }
+    return [computerTotal, playerTotal]
+  }
 })
 
 
